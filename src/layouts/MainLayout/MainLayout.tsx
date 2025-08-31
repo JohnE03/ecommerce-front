@@ -1,3 +1,4 @@
+import { Outlet } from "react-router-dom";
 import { Container } from "react-bootstrap";
 import {Header, Footer} from '@components/common';
 import styles from './styles.module.css';
@@ -8,7 +9,7 @@ const MainLayout = () => {
     <Container className={container}>
       <Header />
       <div className={wrapper}>
-        Hello world from ecommerce main layout
+        <Outlet /> {/* Render the matched child route here */}
       </div>
       <Footer />
     </Container>
