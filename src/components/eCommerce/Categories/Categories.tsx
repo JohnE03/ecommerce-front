@@ -1,14 +1,15 @@
+import type { TCategory } from "@customTypes/category";
 import { Link } from "react-router-dom"; 
 import styles from "./styles.module.css";
 const { category, categoryImg, categoryTitle } = styles;
 
-interface ICategoryProps {
-  title: string;
-  prefix: string;
-  img: string;
-}
+// interface ICategoryProps {
+//   title: string;
+//   prefix: string;
+//   img: string;
+// }
 
-const Category = ({title, prefix, img}: ICategoryProps) => {
+const Category = ({title, prefix, img}: TCategory) => { //id here isn't needed so we add ? in the custom Type file to mark it optional
   return (
     <div className={category}>
       <Link to={`/products/${prefix}`}>
