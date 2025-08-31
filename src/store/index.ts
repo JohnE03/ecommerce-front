@@ -3,7 +3,7 @@ import categoriesSliceReducer from './categories/categoriesSlice';
 
 
 export const store = configureStore({
-  reducer: categoriesSliceReducer,
+  reducer: {categories: categoriesSliceReducer},
 })
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

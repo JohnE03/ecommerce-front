@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 interface IProductsState { //defining a basic form for products such that all other follow
     id: number;
-    title: string; //hard coded states
+    title: string;
     price: number;
     cat_prefix: string;
     img: string | null;
@@ -10,7 +10,7 @@ interface IProductsState { //defining a basic form for products such that all ot
 
 const initState: IProductsState = {
     id: 0,
-    title: "", //hard coded states
+    title: "",
     price: 29.99,
     cat_prefix: "",
     img: ""
