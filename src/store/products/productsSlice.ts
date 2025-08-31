@@ -1,25 +1,44 @@
 import { createSlice } from "@reduxjs/toolkit";
+import actgetProductsByCatPrefix from "./act/actGetProductsByCatPrefix";
+import type { TProduct } from "@customTypes/product";
+import type { TLoading } from "@customTypes/shared";
 
 interface IProductsState { //defining a basic form for products such that all other follow
-    id: number;
-    title: string;
-    price: number;
-    cat_prefix: string;
-    img: string | null;
+    records: TProduct[];
+    loading: TLoading;
+    error: string | null;
 }
 
 const initState: IProductsState = {
-    id: 0,
-    title: "",
-    price: 29.99,
-    cat_prefix: "",
-    img: ""
+    records: [],
+    loading: "idle",
+    error: null
 }
 
 const  productsSlice = createSlice({
     name: "products",
     initialState: initState,
-    reducers: {}
-})
+    reducers: {
+        productsCleanUp: (state) => {
+            state.records = [];
+        }
+    },
+    extraReducers: (builder) => {
+        builder.addCase(actgetProductsByCatPrefix.pending, (state) => {
+            state.loading = "pending";
+            state.error = null;
+        });
+        builder.addCase(actgetProductsByCatPrefix.fulfilled, (state, action) => {
+            state.loading = "succeeded";
+            state.records = action.payload;
+        });
+        builder.addCase(actgetProductsByCatPrefix.rejected, (state, action) => {
+            state.loading = "failed";
+            if(action.payload && typeof action.payload === "string"){ state.error = action.payload as string; }
+        });
+    }
+});
 
+export const {productsCleanUp} = productsSlice.actions;
+export {actgetProductsByCatPrefix};
 export default productsSlice.reducer;
