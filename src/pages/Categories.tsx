@@ -3,6 +3,7 @@ import { Category } from "@components/eCommerce";
 import { useAppDispatch, useAppSelector } from "@store/hooks";
 import { actGetCategories } from "@store/categories/categoriesSlice";
 import { useEffect } from "react";
+import { Loading } from "@components/feedback";
 
 const Categories = () => {
   const dispatch = useAppDispatch();
@@ -12,7 +13,7 @@ const Categories = () => {
     if(!records.length){ //to avoid multiple requests
       dispatch(actGetCategories())
     }
-  } ,[dispatch]
+  } ,[dispatch, records.length]
   );
 
   const categoriesList = records.length > 0 ? records.map((category) => 
@@ -22,11 +23,13 @@ const Categories = () => {
   )
   : "there are no categories";
   return (
-    <Container>
-      <Row>
-        {categoriesList}
-      </Row>
-    </Container>
+      <Container>
+        <Loading status={loading} error={error}>
+          <Row>
+            {categoriesList}
+          </Row>
+        </Loading>
+      </Container>
   );
 };
 
