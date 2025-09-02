@@ -1,4 +1,5 @@
 import type { TProduct } from "@customTypes/product";
+import actGetProductsByItems from "./act/actGetProductsByItems";
 import { createSlice } from "@reduxjs/toolkit";
 
 interface ICartState {
@@ -27,6 +28,8 @@ const cartSlice = createSlice({
     }
 });
 
-
+export{
+    actGetProductsByItems
+}
 export const {addToCart} = cartSlice.actions;
 export default cartSlice.reducer;
