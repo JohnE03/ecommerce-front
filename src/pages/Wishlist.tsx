@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@store/hooks";
-import { actGetWishlist, WishlistCleanUp } from "@store/wishlist/wishlistSlice";
+import { actGetWishlist, wishlistCleanUp } from "@store/wishlist/wishlistSlice";
 import { GridList, Heading } from "@components/common";
 import { Product } from "@components/eCommerce";
 import { Loading } from "@components/feedback";
@@ -19,12 +19,12 @@ const Wishlist = () => {
     useEffect(()=>{
         dispatch(actGetWishlist());
         return ()=>{
-          dispatch(WishlistCleanUp());
+          dispatch(wishlistCleanUp());
         }
     },[dispatch])
   return (
     <>
-        <Heading>Your wishlist</Heading>
+        <Heading title = "Your wishlist" />
         <Loading status={loading} error={error}>
         <GridList record={productsFullInfo} renderItems = {(record) => <Product {...record}/>}>
           </GridList>

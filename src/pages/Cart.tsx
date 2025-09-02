@@ -1,6 +1,6 @@
 import { useCallback, useEffect } from 'react'
 import { useAppDispatch, useAppSelector } from '@store/hooks'
-import { actGetProductsByItems, cartItemChangeQuantity, cartItemRemove } from '@store/cart/cartSlice'
+import { actGetProductsByItems, cartItemChangeQuantity, cartItemRemove, cleanCartProductsFullInfo } from '@store/cart/cartSlice'
 import { Heading } from '@components/common'
 import { Loading } from '@components/feedback'
 import { CartItemList, CartSubtotalPrice } from '@components/eCommerce'
@@ -11,6 +11,9 @@ const Cart = () => {
 
     useEffect(() => {
         dispatch(actGetProductsByItems());
+        return ()=>{
+            dispatch(cleanCartProductsFullInfo());
+        }
     },[dispatch])
 
     const products= productsInfo.map(el=>({...el, quantity: items[el.id]}))
@@ -25,7 +28,7 @@ const Cart = () => {
 
     return (
         <>
-            <Heading>Cart</Heading>
+            <Heading title="Cart" />
             <Loading status={loading} error={error}>
                 
                 {products.length?( <>

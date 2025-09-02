@@ -19,7 +19,7 @@ const  productsSlice = createSlice({
     name: "products",
     initialState: initState,
     reducers: {
-        productsCleanUp: (state) => {
+        cleanUpProducts: (state) => {
             state.records = [];
         }
     },
@@ -39,6 +39,6 @@ const  productsSlice = createSlice({
     }
 });
 
-export const {productsCleanUp} = productsSlice.actions;
+export const {cleanUpProducts} = productsSlice.actions;
 export {actgetProductsByCatPrefix};
 export default productsSlice.reducer;

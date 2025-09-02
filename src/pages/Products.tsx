@@ -1,6 +1,6 @@
 // import { Container } from "react-bootstrap";
 import { useAppDispatch, useAppSelector } from "@store/hooks";
-import { actgetProductsByCatPrefix, productsCleanUp } from "@store/products/productsSlice";
+import { actgetProductsByCatPrefix, cleanUpProducts } from "@store/products/productsSlice";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { GridList, Heading } from "@components/common";
@@ -23,13 +23,13 @@ const Products = () => {
 
   useEffect(()=>{
     dispatch(actgetProductsByCatPrefix(params.prefix as string));
-    return () => { dispatch(productsCleanUp()); } //cleanup function to clear previous products when component unmounts
+    return () => { dispatch(cleanUpProducts()); } //cleanup function to clear previous products when component unmounts
   },[dispatch, params]
   );
 
   return (
     <>
-    <Heading><span className="text-capitalize">{params.prefix} </span>Product</Heading>
+    <Heading title = {`${params.prefix?.toUpperCase()} Products`} />
       <Loading status={loading} error={error}>
         <GridList record={productsInfo} renderItems = {(record) => <Product {...record}/>}>
           </GridList>
