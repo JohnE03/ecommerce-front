@@ -1,16 +1,19 @@
 import { NavLink } from 'react-router-dom'; //router so that links work
-import {HeaderBasket} from '../../eCommerce';
+import {HeaderBasket, HeaderWishlist} from '../../eCommerce';
 import styles from './styles.module.css'
 import {Badge, Nav, Navbar, Container} from 'react-bootstrap';
 
-const {headerContainer, headerLogo} = styles;
+const {headerContainer, headerLogo, headerLeftBar} = styles;
 
 export default function Header() {
   return (
     <header>
         <div className={headerContainer}>
             <h1 className={headerLogo}><span>Our</span><Badge bg='info'>Ecom</Badge></h1>
-            <HeaderBasket />
+            <div className={headerLeftBar}>
+                <HeaderWishlist />
+                <HeaderBasket />
+            </div>
         </div>
         <div>
             <Navbar expand="lg" className="bg-primary rounded" data-bs-theme="dark">

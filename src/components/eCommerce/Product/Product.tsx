@@ -1,10 +1,13 @@
 import { useEffect, useState, memo } from "react";
-import { Button, Spinner } from "react-bootstrap";
-import styles from "./styles.module.css";
-import type { TProduct } from "@customTypes/product";
 import { useAppDispatch } from "@store/hooks";
 import { addToCart } from "@store/cart/cartSlice";
-const { product, productImg, maximumNotice } = styles;
+import { Button, Spinner } from "react-bootstrap";
+import Like from "@assets/svg/like.svg?react";
+// import LikeFill from "@assets/svg/like-fill.svg?react";
+import type { TProduct } from "@customTypes/product";
+
+import styles from "./styles.module.css";
+const { product, productImg, maximumNotice, wishlistBtn } = styles;
 
 const Product = memo(({id, title, price, img, max, quantity}: TProduct) => {
   const dispatch = useAppDispatch();
@@ -30,6 +33,7 @@ const Product = memo(({id, title, price, img, max, quantity}: TProduct) => {
   }
   return (
     <div className={product}>
+      <div className={wishlistBtn}><Like /></div>
       <div className={productImg}>
         <img
           src= {img}
