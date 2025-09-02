@@ -2,6 +2,7 @@ import HeaderBasket from './HeaderBasket/HeaderBasket';
 import Category from './Categories/Categories';
 import Product from './Product/Product';
 import CartItem from './CartItem/CartItem';
-import CartSubtotalPrice from './CartSubtotalPrice/CartSubTotalPrice';
+import CartItemList from './CartItemList/CartItemList';
+import CartSubtotalPrice from './CartSubtotalPrice/CartSubtotalPrice';
 
-export {HeaderBasket, Category, Product, CartItem, CartSubtotalPrice};
+export {HeaderBasket, Category, Product, CartItem, CartItemList, CartSubtotalPrice};

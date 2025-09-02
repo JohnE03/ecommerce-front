@@ -1,15 +1,20 @@
 import type { TProduct } from "@customTypes/product";
 import actGetProductsByItems from "./act/actGetProductsByItems";
 import { createSlice } from "@reduxjs/toolkit";
+import type { TLoading } from "@customTypes/shared";
 
 interface ICartState {
-    items: {[key: number ]: number};
-    productInfo: TProduct[];
+    items: {[key: string]: number};
+    productsInfo: TProduct[];
+    loading: TLoading;
+    error: null | string;
 }
 
 const initState: ICartState = {
     items: {},
-    productInfo: []
+    productsInfo: [],
+    loading: "idle",
+    error: null
 };
 
 const cartSlice = createSlice({
@@ -25,6 +30,20 @@ const cartSlice = createSlice({
                 state.items[id] = 1;
             }
         }
+    },
+    extraReducers: (builder) => {
+        builder.addCase(actGetProductsByItems.pending,(state)=>{
+            state.loading="pending";
+            state.error=null
+        })
+        builder.addCase(actGetProductsByItems.fulfilled,(state, action)=>{
+            state.loading = "succeeded";
+            state.productsInfo = action.payload;
+        })
+        builder.addCase(actGetProductsByItems.rejected,(state, action)=>{
+            state.loading="failed";
+            if(action.payload && typeof action.payload === "string"){ state.error = action.payload as string; }
+        })
     }
 });
 
