@@ -19,8 +19,18 @@ const cartPersistConfig = {
   storage, //where to store, this indicates PC not mobile
   whitelist:["items"], //stores cart only then
 };
+const wishlistPersistConfig = {
+  key: "wishlist",
+  storage, //where to store, this indicates PC not mobile
+  whitelist:["itemsId"], //stores cart only then
+};
 
-const rootReducer = combineReducers( {categories, products , cart: persistReducer(cartPersistConfig, cart), wishlist } );
+const rootReducer = combineReducers( {
+  categories,
+  products,
+  cart: persistReducer(cartPersistConfig, cart),
+  wishlist: persistReducer(wishlistPersistConfig, wishlist)
+} );
 
 const store = configureStore({
   reducer: rootReducer,

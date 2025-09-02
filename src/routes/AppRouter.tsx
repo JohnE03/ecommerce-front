@@ -3,6 +3,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import {MainLayout} from '@layouts/index';
 //pages
 import Home from '@pages/Home';
+import Wishlist from '@pages/Wishlist';
 import Cart from '@pages/Cart';
 import Categories from '@pages/Categories';
 import Products from '@pages/Products';
@@ -19,6 +20,10 @@ const router = createBrowserRouter([{
         {
             index: true,
             element: <Home />
+        },
+        {
+            path: "wishlist",
+            element: <Wishlist />
         },
         {
             path: "cart",

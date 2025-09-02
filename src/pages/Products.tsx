@@ -1,11 +1,11 @@
 // import { Container } from "react-bootstrap";
-import { Product } from "@components/eCommerce";
 import { useAppDispatch, useAppSelector } from "@store/hooks";
 import { actgetProductsByCatPrefix, productsCleanUp } from "@store/products/productsSlice";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { Loading } from "@components/feedback";
 import { GridList, Heading } from "@components/common";
+import { Product } from "@components/eCommerce";
+import { Loading } from "@components/feedback";
 
 const Products = () => {
   const params = useParams();
@@ -15,7 +15,7 @@ const Products = () => {
 
   const wishListItemsId = useAppSelector((state)=>state.wishlist.itemsId);
 
-  const productsFullInfo = records.map((el)=>({
+  const productsInfo = records.map((el)=>({
     ...el,
     quantity: cartItems[el.id || 0],
     isLiked: wishListItemsId.includes(el.id)
@@ -31,7 +31,7 @@ const Products = () => {
     <>
     <Heading><span className="text-capitalize">{params.prefix} </span>Product</Heading>
       <Loading status={loading} error={error}>
-        <GridList record={productsFullInfo} renderItems = {(record) => <Product {...record}/>}>
+        <GridList record={productsInfo} renderItems = {(record) => <Product {...record}/>}>
           </GridList>
       </Loading>
     </>

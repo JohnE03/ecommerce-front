@@ -5,7 +5,6 @@ import { addToCart } from "@store/cart/cartSlice";
 import { Button, Spinner } from "react-bootstrap";
 import Like from "@assets/svg/like.svg?react";
 import LikeFill from "@assets/svg/like-fill.svg?react";
-// import LikeFill from "@assets/svg/like-fill.svg?react";
 import type { TProduct } from "@customTypes/product";
 
 import styles from "./styles.module.css";
@@ -14,6 +13,7 @@ const { product, productImg, maximumNotice, wishlistBtn } = styles;
 const Product = memo(({id, title, price, img, max, quantity, isLiked}: TProduct ) => {
   const dispatch = useAppDispatch();
   const [isBtnDisable, setBtnDisabled]=useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const currentRemainingQuantity = max - (quantity ?? 0); //if null or undef or ... take the specified value
   const maxQuantityReached = currentRemainingQuantity <= 0 ? true : false;
@@ -35,13 +35,15 @@ const Product = memo(({id, title, price, img, max, quantity, isLiked}: TProduct 
   }
 
   const likeToggleHandler = ()=>{
-    dispatch(actLikeToggle(id));
+    if(isLoading) return;
+    setIsLoading(true);
+    dispatch(actLikeToggle(id)).unwrap().then(()=>setIsLoading(false)).catch(()=>setIsLoading(false));
   };
 
   return (
     <div className={product}>
       <div className={wishlistBtn} onClick={likeToggleHandler}>
-        {isLiked? <LikeFill />:<Like /> }
+        {isLoading? (<Spinner animation="border" size="sm" variant="primary"/>):( isLiked? <LikeFill />: <Like /> )}
       </div>
       <div className={productImg}>
         <img
