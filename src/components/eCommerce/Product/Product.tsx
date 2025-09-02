@@ -1,15 +1,17 @@
 import { useEffect, useState, memo } from "react";
 import { useAppDispatch } from "@store/hooks";
+import { actLikeToggle } from "@store/wishlist/wishlistSlice";
 import { addToCart } from "@store/cart/cartSlice";
 import { Button, Spinner } from "react-bootstrap";
 import Like from "@assets/svg/like.svg?react";
+import LikeFill from "@assets/svg/like-fill.svg?react";
 // import LikeFill from "@assets/svg/like-fill.svg?react";
 import type { TProduct } from "@customTypes/product";
 
 import styles from "./styles.module.css";
 const { product, productImg, maximumNotice, wishlistBtn } = styles;
 
-const Product = memo(({id, title, price, img, max, quantity}: TProduct) => {
+const Product = memo(({id, title, price, img, max, quantity, isLiked}: TProduct ) => {
   const dispatch = useAppDispatch();
   const [isBtnDisable, setBtnDisabled]=useState(false);
 
@@ -31,9 +33,16 @@ const Product = memo(({id, title, price, img, max, quantity}: TProduct) => {
     dispatch(addToCart(id))
     setBtnDisabled(true)
   }
+
+  const likeToggleHandler = ()=>{
+    dispatch(actLikeToggle(id));
+  };
+
   return (
     <div className={product}>
-      <div className={wishlistBtn}><Like /></div>
+      <div className={wishlistBtn} onClick={likeToggleHandler}>
+        {isLiked? <LikeFill />:<Like /> }
+      </div>
       <div className={productImg}>
         <img
           src= {img}
