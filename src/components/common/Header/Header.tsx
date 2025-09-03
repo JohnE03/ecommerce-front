@@ -1,22 +1,21 @@
 import { NavLink } from 'react-router-dom'; //router so that links work
-import {HeaderBasket, HeaderWishlist} from '../../eCommerce';
+// import {HeaderBasket, HeaderWishlist} from '../../eCommerce';
 import styles from './styles.module.css'
 import {Badge, Nav, Navbar, Container} from 'react-bootstrap';
-
-const {headerContainer, headerLogo, headerLeftBar} = styles;
+import HeaderLeftBar from './HeaderLeftBar/headerLeftBar';
+const {headerContainer, headerLogo} = styles;
 
 export default function Header() {
   return (
     <header>
         <div className={headerContainer}>
-            <h1 className={headerLogo}><span>Our</span><Badge bg='info'>Ecom</Badge></h1>
-            <div className={headerLeftBar}>
-                <HeaderWishlist />
-                <HeaderBasket />
-            </div>
+            <h1 className={headerLogo}>
+                <span>Our</span>
+                <Badge bg='info'>Ecom</Badge>
+            </h1>
+            <HeaderLeftBar />
         </div>
-        <div>
-            <Navbar expand="lg" className="bg-primary rounded" data-bs-theme="dark">
+        <Navbar expand="lg" className="bg-primary rounded" data-bs-theme="dark">
             <Container>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
@@ -31,8 +30,7 @@ export default function Header() {
                 </Nav>
                 </Navbar.Collapse>
             </Container>
-            </Navbar>
-        </div>
+        </Navbar>
     </header>
   )
 }

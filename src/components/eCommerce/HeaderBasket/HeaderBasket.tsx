@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getCartTotalQuantitySelector } from "@store/cart/selectors";
+import { getCartTotalQuantitySelector } from "@store/cart/cartSlice";
 import { useAppSelector } from "@store/hooks";
-import Logo from "../../../assets/svg/cart.svg?react";
+import Logo from "@assets/svg/cart.svg?react";
 
 import styles from './styles.module.css';
 
