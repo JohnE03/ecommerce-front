@@ -11,7 +11,7 @@ const Categories = () => {
     <>
     <Heading title = 'Categories' />
       <Container>
-        <Loading status={loading} error={error}>
+        <Loading status={loading} error={error} type="category">
           <GridList record={records} renderItems = {(record) => <Category {...record}/>} />
         </Loading>
       </Container>

@@ -1,20 +1,32 @@
+import CategorySkeleton from "../skeleton/CategorySkeleton/CategorySkeleton";
+import ProductSkeleton from "../skeleton/ProductSkeleton/ProductSkeleton";
+import CartSkeleton from "../skeleton/CartSkeleton/CartSkeleton";
 //for loading images
 import type { TLoading } from "@types";
 
-interface ILoadingProps {
+const skeletonTypes = { //dynamic component
+    cart: CartSkeleton,
+    product: ProductSkeleton,
+    category: CategorySkeleton
+};
+
+type ILoadingProps = {
     status: TLoading;
     error: string | null;
     children: React.ReactNode; //tells react we will get nodesm .JSX.Element implies a single tag
+    // type?: "cart" | "product" | "category"; //we can't keep writing it manually
+    type?: keyof typeof skeletonTypes; //returns skeletonTyoes but each value is now a string
 }
 
-const Loading = ({status, error, children}: ILoadingProps) => {
-  if(status === "pending"){
-    return <p>Loading please wait</p>
-  }
-  if(status === "failed"){
-    return <p>{error}</p>
-  }
-  return <>{children}</>
+const Loading = ({status, error, children, type="category"}: ILoadingProps) => {
+    const Component = skeletonTypes[type];
+    if(status === "pending"){
+        return <Component />;
+    }
+    if(status === "failed"){
+        return <p>{error}</p>
+    }
+    return <>{children}</>
 }
 
 export default Loading

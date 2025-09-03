@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router-dom'; //router so that links work
 import styles from './styles.module.css'
 import {Badge, Nav, Navbar, Container} from 'react-bootstrap';
-import HeaderLeftBar from './HeaderLeftBar/headerLeftBar';
+import HeaderLeftBar from './HeaderLeftBar/HeaderLeftBar';
 const {headerContainer, headerLogo} = styles;
 
 export default function Header() {
@@ -14,7 +14,7 @@ export default function Header() {
             </h1>
             <HeaderLeftBar />
         </div>
-        <Navbar expand="lg" className="bg-primary rounded" data-bs-theme="dark">
+        <Navbar expand="lg" className="bg-body-tertiary rounded" data-bs-theme="dark">
             <Container>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
