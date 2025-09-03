@@ -19,8 +19,11 @@ const useProducts = () => {
     }));
 
     useEffect(()=>{
-        dispatch(actgetProductsByCatPrefix(params.prefix as string));
-        return () => { dispatch(cleanUpProducts()); } //cleanup function to clear previous products when component unmounts
+        const promise = dispatch(actgetProductsByCatPrefix(params.prefix as string));
+        return () => {
+            dispatch(cleanUpProducts());
+            promise.abort();
+         } //cleanup function to clear previous products when component unmounts
     },[dispatch, params]
   );
 

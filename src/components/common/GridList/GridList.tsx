@@ -1,6 +1,4 @@
 import { Row, Col } from "react-bootstrap";
-// import type { TCategory } from "@customTypes/category";
-// import type { TProduct } from "@customTypes/product";
 
 type TGridList<T> = {
     record: T[];

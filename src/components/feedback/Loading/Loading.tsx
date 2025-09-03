@@ -1,5 +1,5 @@
 //for loading images
-import type { TLoading } from "@customTypes/shared";
+import type { TLoading } from "@types";
 
 interface ILoadingProps {
     status: TLoading;

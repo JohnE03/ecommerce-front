@@ -1,5 +1,4 @@
 import { NavLink } from 'react-router-dom'; //router so that links work
-// import {HeaderBasket, HeaderWishlist} from '../../eCommerce';
 import styles from './styles.module.css'
 import {Badge, Nav, Navbar, Container} from 'react-bootstrap';
 import HeaderLeftBar from './HeaderLeftBar/headerLeftBar';
@@ -11,7 +10,7 @@ export default function Header() {
         <div className={headerContainer}>
             <h1 className={headerLogo}>
                 <span>Our</span>
-                <Badge bg='info'>Ecom</Badge>
+                <Badge bg='info'>eCom</Badge>
             </h1>
             <HeaderLeftBar />
         </div>

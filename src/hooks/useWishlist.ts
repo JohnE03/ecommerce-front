@@ -14,9 +14,10 @@ const useWishlist = () => {
     }));
 
     useEffect(()=>{
-        dispatch(actGetWishlist());
+        const promise = dispatch(actGetWishlist());
         return ()=>{
           dispatch(wishlistCleanUp());
+          promise.abort();
         }
     },[dispatch])
 

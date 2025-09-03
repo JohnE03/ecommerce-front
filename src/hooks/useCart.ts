@@ -7,9 +7,10 @@ const useCart = () => {
     const {items, productsInfo, loading, error} = useAppSelector((state) => state.cart)
 
     useEffect(() => {
-        dispatch(actGetProductsByItems());
+        const promise = dispatch(actGetProductsByItems());
         return ()=>{
             dispatch(cleanCartProductsFullInfo());
+            promise.abort();
         }
     },[dispatch])
 

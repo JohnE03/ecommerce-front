@@ -9,10 +9,11 @@ const useCategories = () => {
 
     useEffect(()=>{
         //to avoid multiple requests
-        dispatch(actGetCategories())
+        const promise=dispatch(actGetCategories())
     
         return ()=>{
             dispatch(categoriesRecordsCleanUp());
+            promise.abort();
         }
     } ,[dispatch]
   );
