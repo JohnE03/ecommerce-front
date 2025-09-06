@@ -1,6 +1,6 @@
 import { useAppDispatch, useAppSelector } from "@store/hooks";
 import { actAuthRegister, resetUI } from "@store/auth/authSlice";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signUpSchema, type signUpType } from "@validations/signUpSchema";
@@ -13,7 +13,7 @@ import { useEffect } from "react";
 const Register = () => {
   const dispatch=useAppDispatch();
   const navigate=useNavigate();
-  const {loading, error} = useAppSelector((state)=>state.auth)
+  const {loading, error, accessToken} = useAppSelector((state)=>state.auth)
 
   const {
     register,
@@ -60,6 +60,10 @@ const Register = () => {
         dispatch(resetUI());
       };
     },[dispatch]);
+
+    if(accessToken){
+        return <Navigate to="/" />;
+    }
 
   return (
     <>

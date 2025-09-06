@@ -11,7 +11,6 @@ const actGetProductsByItems = createAsyncThunk(
     async (_,thunkAPI)=>{
         const {rejectWithValue, fulfillWithValue, getState, signal} = thunkAPI;
         const {cart} = getState() as RootState;
-        console.log(cart.items);
         const itemsId=Object.keys(cart.items);
         const concatenatedItemIds = itemsId.map(el=>`id=${el}`).join("&");
 

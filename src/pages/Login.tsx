@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { actAuthLogin, resetUI } from "@store/auth/authSlice";
 import { useAppDispatch, useAppSelector } from "@store/hooks";
-import { useSearchParams, useNavigate } from "react-router-dom";
+import { useSearchParams, useNavigate, Navigate } from "react-router-dom";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signInSchema, type signInType } from "@validations/signInSchema";
@@ -16,7 +16,7 @@ const Login = () => {
 
     const [searchParams, setSearchParams] = useSearchParams();
 
-    const {loading, error} = useAppSelector((state)=>state.auth);
+    const {loading, error, accessToken} = useAppSelector((state)=>state.auth);
 
     const { register, handleSubmit, formState: {errors} } = useForm<signInType>({
         mode: "onBlur",
@@ -33,11 +33,16 @@ const Login = () => {
         };
     },[dispatch]);
 
+    if(accessToken){
+        return <Navigate to="/" />;
+    }
+
     return (
         <>
             <Heading title="User Login"/>
             <Row>
                 <Col md={{span: 6, offset: 3}}>
+                {searchParams.get("message") === "login_required" && (<Alert variant="success">You need to login to view this content</Alert>)}
                 {searchParams.get("message") === "account_created" && (<Alert variant="success">Your account was successfully created</Alert>)}
                     <Form onSubmit={handleSubmit(submitForm)}>
                         <Input label="Email address" name = "email" register={register} error={errors.email?.message as string}/>
