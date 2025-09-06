@@ -17,7 +17,7 @@ const useRegister = () => {
         handleSubmit,
         getFieldState,
         trigger,
-        formState: { errors },
+        formState: { errors: formErrors },
     } = useForm<signUpType>({
         mode: "onBlur",
         resolver: zodResolver(signUpSchema),
@@ -57,7 +57,7 @@ const useRegister = () => {
             dispatch(resetUI());
         };
     },[dispatch]);
-    return {loading, error, accessToken, handleSubmit, register, errors, submitForm, emailAvailabilityStatus, emailOnBlurHandler};
+    return {loading, error, accessToken, formErrors, emailAvailabilityStatus, handleSubmit, register, submitForm, emailOnBlurHandler};
 };
 
 export default useRegister

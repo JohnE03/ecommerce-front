@@ -5,7 +5,7 @@ import { Navigate } from "react-router-dom";
 import useRegister from "@hooks/useRegister";
 
 const Register = () => {
-    const {loading, error, accessToken, handleSubmit, register, errors, submitForm, emailAvailabilityStatus, emailOnBlurHandler} = useRegister();
+    const {loading, error, accessToken, handleSubmit, formErrors, register, submitForm, emailAvailabilityStatus, emailOnBlurHandler} = useRegister();
 
     if(accessToken){
         return <Navigate to="/" />;
@@ -21,13 +21,13 @@ const Register = () => {
               label="First Name"
               name="firstName"
               register={register}
-              error={errors.firstName?.message as string}
+              error={formErrors.firstName?.message as string}
             />
             <Input
               label="Last Name"
               name="lastName"
               register={register}
-              error={errors.lastName?.message as string}
+              error={formErrors.lastName?.message as string}
             />
             <Input
               label="Email Address"
@@ -35,8 +35,8 @@ const Register = () => {
               register={register}
               onBlur={emailOnBlurHandler}
               error={
-                errors.email?.message
-                  ? errors.email?.message
+                formErrors.email?.message
+                  ? formErrors.email?.message
                   : emailAvailabilityStatus === "notAvailable"
                   ? "This email is already in use."
                   : emailAvailabilityStatus === "failed"
@@ -60,14 +60,14 @@ const Register = () => {
               label="Password"
               name="password"
               register={register}
-              error={errors.password?.message as string}
+              error={formErrors.password?.message as string}
             />
             <Input
               type="password"
               label="Confirm Password"
               name="confirmPassword"
               register={register}
-              error={errors.confirmPassword?.message as string}
+              error={formErrors.confirmPassword?.message as string}
             />
             <Button
               variant="info"
