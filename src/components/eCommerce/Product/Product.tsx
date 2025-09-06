@@ -2,13 +2,14 @@ import { useEffect, useState, memo } from "react";
 import { useAppDispatch } from "@store/hooks";
 import { actLikeToggle } from "@store/wishlist/wishlistSlice";
 import { addToCart } from "@store/cart/cartSlice";
-import { Button, Modal, Spinner } from "react-bootstrap";
 import Like from "@assets/svg/like.svg?react";
 import LikeFill from "@assets/svg/like-fill.svg?react";
+import ProductInfo from "../ProductInfo/ProductInfo";
+import { Button, Modal, Spinner } from "react-bootstrap";
 import type { TProduct } from "@types";
 
 import styles from "./styles.module.css";
-const { product, productImg, maximumNotice, wishlistBtn } = styles;
+const { productImg, maximumNotice, wishlistBtn } = styles;
 
 const Product = memo(({id, title, price, img, max, quantity, isLiked, isAuthenticated}: TProduct ) => {
     const dispatch = useAppDispatch();
@@ -56,23 +57,15 @@ const Product = memo(({id, title, price, img, max, quantity, isLiked, isAuthenti
                 You need to login first to add this item to your wishlist.
             </Modal.Body>
         </Modal>
-        <div className={product}>
+        <ProductInfo title={title} price={price} img={img}>
         <div className={wishlistBtn} onClick={likeToggleHandler}>
             {isLoading? (<Spinner animation="border" size="sm" variant="primary"/>):( isLiked? <LikeFill />: <Like /> )}
         </div>
-        <div className={productImg}>
-            <img
-            src= {img}
-            alt= {title}
-            />
-        </div>
-        <h2 title={title}>{title}</h2>
-        <h3>{price.toFixed(2)} EGP</h3>
         <p className={maximumNotice}>{maxQuantityReached? "Max limit reached": `You can add ${currentRemainingQuantity} item(s)`}</p>
-        <Button variant="info" style={{ color: "white" }} onClick={addToCartHandler} disabled={isBtnDisable || maxQuantityReached}>
+        <Button variant="info" style={{ color: "white", width: "100%" }} onClick={addToCartHandler} disabled={isBtnDisable || maxQuantityReached}>
             {isBtnDisable? <><Spinner animation="border" size="sm" />Loading....</>: "Add to cart"}
         </Button>
-        </div>
+        </ProductInfo>
     </>
   );
 });
