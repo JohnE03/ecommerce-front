@@ -1,65 +1,11 @@
-import { useAppDispatch, useAppSelector } from "@store/hooks";
-import { actAuthRegister, resetUI } from "@store/auth/authSlice";
-import { Navigate, useNavigate } from "react-router-dom";
-import { useForm, type SubmitHandler } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { signUpSchema, type signUpType } from "@validations/signUpSchema";
-import useCheckEmailAvailability from "@hooks/useCheckEmailAvailability";
 import { Heading } from "@components/common";
 import { Input } from "@components/Form";
 import { Form, Button, Row, Col, Spinner } from "react-bootstrap";
-import { useEffect } from "react";
+import { Navigate } from "react-router-dom";
+import useRegister from "@hooks/useRegister";
 
 const Register = () => {
-  const dispatch=useAppDispatch();
-  const navigate=useNavigate();
-  const {loading, error, accessToken} = useAppSelector((state)=>state.auth)
-
-  const {
-    register,
-    handleSubmit,
-    getFieldState,
-    trigger,
-    formState: { errors },
-  } = useForm<signUpType>({
-    mode: "onBlur",
-    resolver: zodResolver(signUpSchema),
-  });
-
-  const submitForm: SubmitHandler<signUpType> = async(data) => {
-    const {firstName, lastName, email, password} = data;
-    dispatch(actAuthRegister({firstName, lastName, email, password})).unwrap().then(()=>{
-      navigate("/login?message=account_created")
-    });
-  };
-
-  const {
-    emailAvailabilityStatus,
-    enteredEmail,
-    checkEmailAvailability,
-    resetCheckEmailAvailability,
-  } = useCheckEmailAvailability();
-
-  const emailOnBlurHandler = async (e: React.FocusEvent<HTMLInputElement>) => {
-    await trigger("email");
-    const value = e.target.value;
-    const { isDirty, invalid } = getFieldState("email");
-
-    if (isDirty && !invalid && enteredEmail !== value) {
-      // checking
-      checkEmailAvailability(value);
-    }
-
-    if (isDirty && invalid && enteredEmail) {
-      resetCheckEmailAvailability();
-    }
-  };
-
-    useEffect(()=>{
-      return ()=>{
-        dispatch(resetUI());
-      };
-    },[dispatch]);
+    const {loading, error, accessToken, handleSubmit, register, errors, submitForm, emailAvailabilityStatus, emailOnBlurHandler} = useRegister();
 
     if(accessToken){
         return <Navigate to="/" />;
