@@ -1,14 +1,22 @@
 import { useAppSelector, useAppDispatch } from '@store/hooks';
 import { authLogOut } from '@store/auth/authSlice';
+import { actGetWishlist } from '@store/wishlist/wishlistSlice';
 import { NavLink } from 'react-router-dom'; //router so that links work
 import styles from './styles.module.css'
 import {Badge, Nav, Navbar, Container, NavDropdown} from 'react-bootstrap';
 import HeaderLeftBar from './HeaderLeftBar/HeaderLeftBar';
+import { useEffect } from 'react';
 const {headerContainer, headerLogo} = styles;
 
 export default function Header() {
     const dispatch = useAppDispatch();
-    const {accessToken, user} = useAppSelector((state)=>state.auth)
+    const {accessToken, user} = useAppSelector((state)=>state.auth);
+
+    useEffect(()=>{
+        if(accessToken){
+            dispatch(actGetWishlist("productIds"));
+        }
+    },[dispatch, accessToken]);
   return (
     <header>
         <div className={headerContainer}>

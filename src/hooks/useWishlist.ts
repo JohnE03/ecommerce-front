@@ -11,10 +11,11 @@ const useWishlist = () => {
         ...el,
         quantity: cartItems[el.id || 0],
         isLiked: true,
+        isAuthenticated: true
     }));
 
     useEffect(()=>{
-        const promise = dispatch(actGetWishlist());
+        const promise = dispatch(actGetWishlist("productsFullInfo"));
         return ()=>{
           dispatch(wishlistCleanUp());
           promise.abort();

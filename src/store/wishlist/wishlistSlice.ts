@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import actLikeToggle from "./act/actLikeToggle";
 import actGetWishlist from "./act/actGetWishlist";
+import { authLogOut } from "@store/auth/authSlice";
 import { type TProduct, type TLoading, isString } from "@types";
 
 interface IWishlist {
@@ -48,13 +49,23 @@ const wishlistSlice = createSlice({
         })
         builder.addCase(actGetWishlist.fulfilled, (state, action)=>{
             state.loading='succeeded'
-            state.productsInfo=action.payload;
+            if(action.payload.dataType==="productsFullInfo"){
+                state.productsInfo = action.payload.data as TProduct[];
+            }
+            else if (action.payload.dataType === "productIds"){
+                state.itemsId = action.payload.data as number[];
+            }
         })
         builder.addCase(actGetWishlist.rejected, (state, action)=>{
             state.loading='failed'
             if (isString(action.payload)){
                 state.error=action.payload;
             }
+        })
+        //when logout reset
+        builder.addCase(authLogOut, (state)=>{
+            state.itemsId = [];
+            state.productsInfo = [];
         })
     }
 });
