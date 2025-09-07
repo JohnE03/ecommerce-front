@@ -2,13 +2,15 @@ import CategorySkeleton from "../skeleton/CategorySkeleton/CategorySkeleton";
 import ProductSkeleton from "../skeleton/ProductSkeleton/ProductSkeleton";
 import CartSkeleton from "../skeleton/CartSkeleton/CartSkeleton";
 import LottieHandler from "../LottieHandler/LottieHandler";
+import TableSkeleton from "../skeleton/TableSkeleton/TableSkeleton";
 //for loading images
 import type { TLoading } from "@types";
 
 const skeletonTypes = { //dynamic component
     cart: CartSkeleton,
     product: ProductSkeleton,
-    category: CategorySkeleton
+    category: CategorySkeleton,
+    table: TableSkeleton
 };
 
 type ILoadingProps = {
